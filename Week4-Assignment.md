@@ -95,3 +95,80 @@ Build a full-stack MERN (MongoDB, Express.js, React.js, Node.js) application tha
      - Screenshots of the application
 6. Your submission will be automatically graded based on the criteria in the autograding configuration
 7. The instructor will review your submission after the autograding is complete 
+
+---
+
+## **Problems Identified**
+
+### 1. **Client: `npm install` fails**
+- **Reason:** There is no `package.json` in your `client/` folder.  
+  This means your React app is missing its dependency manifest and cannot be installed or run.
+
+### 2. **Server: `npm run dev` fails with `Cannot find module 'express-validator'`**
+- **Reason:** The `express-validator` package is required in your routes, but it is not listed in your `server/package.json` dependencies and is not installed.
+
+---
+
+## **How to Fix**
+
+### **Step 1: Fix the Server**
+1. **Install `express-validator` in the server folder:**
+   ```sh
+   cd week-4-mern-integration-assignment-wenakanew/server
+   npm install express-validator
+   ```
+2. **After installing, run your server again:**
+   ```sh
+   npm run dev
+   ```
+
+---
+
+### **Step 2: Fix the Client**
+1. **Create a new React app in the `client/` folder using Vite (if you don’t have a backup of the original `package.json`):**
+   ```sh
+   cd week-4-mern-integration-assignment-wenakanew
+   rm -rf client
+   npm create vite@latest client -- --template react
+   cd client
+   npm install
+   ```
+   > This will create a new React app in the `client/` folder with a valid `package.json`.
+
+2. **Copy your existing `src/`, `vite.config.js`, and `.env.example` files into the new `client/` folder if needed.**
+
+---
+
+### **Step 3: Reinstall All Dependencies**
+- After fixing both folders, run:
+  ```sh
+  cd week-4-mern-integration-assignment-wenakanew/server
+  npm install
+  cd ../client
+  npm install
+  ```
+
+---
+
+### **Step 4: Start Both Servers**
+- **Server:**
+  ```sh
+  cd week-4-mern-integration-assignment-wenakanew/server
+  npm run dev
+  ```
+- **Client:**
+  ```sh
+  cd week-4-mern-integration-assignment-wenakanew/client
+  npm run dev
+  ```
+
+---
+
+**Summary:**  
+- Install `express-validator` in the server.
+- Recreate the `client/` folder with a valid React/Vite setup if `package.json` is missing.
+- Reinstall dependencies and start both servers.
+
+---
+
+If you want, I can provide a sample `package.json` for the client if you want to avoid recreating the folder. Let me know if you want that, or if you want to proceed with the Vite setup above! 
